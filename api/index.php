@@ -4,13 +4,17 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-// 1. Muat Autoloader Composer
+// Load Autoloader
 require __DIR__ . '/../vendor/autoload.php';
 
-// 2. Inisialisasi Aplikasi Laravel
+// Bootstrap Laravel
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-// 3. Tangani Request Masuk dan Kirimkan Response
-$status = $app->handleRequest(Request::capture());
+// Tangani Request
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
-exit($status);
+$response = $kernel->handle(
+    $request = Request::capture()
+)->send();
+
+$kernel->terminate($request, $response);
