@@ -98,7 +98,7 @@ class DatabaseSeeder extends Seeder
             for ($sequence = 1; $sequence <= $ordersToday; $sequence++) {
                 $createdAt = $date->copy()->setTime(random_int(7, 15), random_int(0, 59));
                 $statusRoll = random_int(1, 100);
-                $status = $statusRoll <= 84 ? 'confirmed' : ($statusRoll <= 94 ? 'pending' : 'canceled');
+                $status = $statusRoll <= 84 ? 'completed' : ($statusRoll <= 94 ? 'pending' : 'canceled');
                 $paymentMethod = fake()->randomElement(['tunai', 'tunai', 'qris', 'transfer']);
                 $customer = random_int(1, 100) <= 88 ? $customers->random() : null;
                 $customerName = $customer
@@ -153,7 +153,7 @@ class DatabaseSeeder extends Seeder
                         'subtotal' => $item['subtotal'],
                     ]);
 
-                    if ($status === 'confirmed') {
+                    if ($status === 'completed') {
                         $stockLevels[$item['product']->product_id] -= $item['quantity'];
                     }
                 }
