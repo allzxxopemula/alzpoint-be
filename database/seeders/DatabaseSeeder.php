@@ -89,7 +89,7 @@ class DatabaseSeeder extends Seeder
         $stockLevels = $products->mapWithKeys(fn (Product $product) => [$product->product_id => $product->stock]);
         $baseDate = now()->startOfDay();
 
-        for ($daysAgo = 44; $daysAgo >= 0; $daysAgo--) {
+        for ($daysAgo = 3; $daysAgo >= 0; $daysAgo--) {
             $date = $baseDate->copy()->subDays($daysAgo);
             $ordersToday = $daysAgo === 0
                 ? random_int(3, 6)
